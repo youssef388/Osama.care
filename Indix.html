@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نصائح التمريض المنزلي - أسامة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --accent: #38bdf8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.2);
+            position: relative;
+        }
+        header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            font-weight: 900;
+        }
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .phone-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .notice-banner {
+            background: #fff;
+            border-right: 4px solid #f59e0b;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .daily-tip-card {
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            border: 2px solid var(--accent);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+        }
+        .daily-tip-card h3 {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            background: #fff;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.1);
+        }
+        .card .code {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: #e0f2fe;
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .card h4 {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .card p {
+            font-size: 0.85px;
+            color: var(--text-light);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #fff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: modalIn 0.3s ease;
+            position: relative;
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .modal-body {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: opacity 0.2s;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+        .btn:hover { opacity: 0.9; }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>نصائح التمريض المنزلي - أسامة</h1>
+        <p>رعاية صحية آمنة وموثوقة بمنزلك</p>
+        <a href="tel:01122350816" class="phone-badge">📞 01122350816</a>
+    </header>
+
+    <div class="container">
+        <div class="notice-banner">
+            ⚠️ <strong>تنبيه هام:</strong> هذه الصفحة للتوعية الصحية العامة فقط، وليست بديلًا عن استشارة الطبيب أو الصيدلي. عند ظهور أي أعراض شديدة أو مفاجئة تواصل مع طبيبك أو اذهب للطوارئ فورًا.
+        </div>
+
+        <div class="daily-tip-card" id="dailyTipContainer">
+            <h3 id="dailyTitle">🌟 نصيحة اليوم الصحية</h3>
+            <p id="dailyText">جاري تحميل نصيحة اليوم...</p>
+        </div>
+
+        <input type="text" id="searchInput" class="search-box" placeholder="ابحث برقم الكود (مثال: 001) أو اسم الحالة (مثال: السكر، الضغط)..." oninput="filterCategories()">
+
+        <div class="grid" id="categoriesGrid">
+            <!-- سيتم تعبئة الأقسام تلقائياً عبر سكربت الجافاسكريبت -->
+        </div>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © أسامة للتمريض المنزلي 2026</p>
+    </footer>
+
+    <!-- نافذة عرض النصيحة -->
+    <div class="modal" id="tipModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">عنوان الحالة</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                محتوى النصيحة يظهر هنا...
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="copyTip()">نسخ النصيحة</button>
+                <button class="btn btn-secondary" onclick="closeModal()">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categories = [
+            { id: "001", name: "مرضى السكر", tip: "احرص على قياس السكر بانتظام في نفس الأوقات، وافحص قدميك يومياً بحثاً عن أي جروح أو تغيرات، وتجنب المشي حافي القدمين تماماً." },
+            { id: "002", name: "مرضى الضغط", tip: "قلل الملح تماماً في طعامك، والتزم بمواعيد الأدوية بدقة، وابتعد عن التوتر والانفعالات العصبية المستمرة." },
+            { id: "003", name: "مرضى الدم", tip: "احرص على شرب السوائل بانتظام، وتجنب الوقوف المفاجئ لتفادي الدوخة، واهتم بتناول الأغذية الغنية بالعناصر المغذية حسب إرشادات الطبيب." },
+            { id: "004", name: "مرضى الصداع", tip: "تجنب التعرض المباشر للشمس لفترات طويلة، اشرب كميات كافية من الماء يومياً، واحرص على النوم لفترات كافية ومنتظمة." },
+            { id: "005", name: "مرضى وجع الركبة", tip: "تجنب صعود وهبوط السلم بشكل متكرر، وحافظ على وزن صحي لتقليل الضغط على المفصل، ويمكن استخدام كمادات دافئة عند اللزوم." },
+            { id: "006", name: "نصائح صحية عامة لكل الناس", tip: "اشرب من 2 ل 3 لتر مياه يومياً، مارس رياضة المشي الخفيف بانتظام، واجعل وجباتك غنية بالخضروات الطازجة." },
+            { id: "007", name: "الأسنان", tip: "غسل الأسنان بالمعجون مرتين يومياً على الأقل، واستخدم الخيط الطبي لإزالة بقايا الطعام، وزر الطبيب فحص دوري كل 6 أشهر." },
+            { id: "008", name: "مرضى القلب", tip: "تجنب المجهود البدني المفاجئ والعنيف، امتنع تماماً عن التدخين والتعرض للمدخنين، والتزم بالأدوية في مواعيدها بدقة شديدة." },
+            { id: "009", name: "مرضى الكلى", tip: "نظم كمية السوائل والمياه التي تتناولها بناءً على تعليمات الطبيب المعالج، وقلل من الأغذية الغنية بالملح والبروتينات الزائدة." },
+            { id: "010", name: "الربو والصدر", tip: "ابتعد تماماً عن الأتربة والدخان والبخور والعطور النفاذة، واحتفظ بالبخاخ الموسع للشعب الهوائية معك في كل مكان." },
+            { id: "011", name: "كبار السن", tip: "ساعدهم على الحركة بحذر لتفادي السقوط، واهتم بتقديم وجبات لينة وسهلة الهضم، وتأكد من تناولهم الأدوية في أوقاتها المحددة." },
+            { id: "012", name: "الرمد والعين", tip: "لا تفرك عينيك بيديك نهائياً لتفادي نقل العدوى، استخدم القطرات الطبية الموصوفة في مواعيدها واغسل يديك جيداً قبلها." }
+        ];
+
+        function renderCategories(filter = '') {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = '';
+            
+            const filtered = categories.filter(c => 
+                c.id.includes(filter) || c.name.toLowerCase().includes(filter.toLowerCase()) || c.tip.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-light); padding: 20px;">لا توجد نتائج مطابقة لبحثك...</p>';
+                return;
+            }
+
+            filtered.forEach(cat => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openModal(cat);
+                card.innerHTML = `
+                    <span class="code">كود: ${cat.id}</span>
+                    <h4>${cat.name}</h4>
+                    <p>${cat.tip}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategories() {
+            const query = document.getElementById('searchInput').value;
+            renderCategories(query);
+        }
+
+        function openModal(cat) {
+            document.getElementById('modalTitle').innerText = `${cat.name} (كود: ${cat.id})`;
+            document.getElementById('modalBody').innerText = cat.tip;
+            document.getElementById('tipModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('tipModal').style.display = 'none';
+        }
+
+        function copyTip() {
+            const text = document.getElementById('modalBody').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ النصيحة بنجاح!');
+            });
+        }
+
+        // اختيار نصيحة اليوم عشوائياً بناءً على تاريخ اليوم
+        function setDailyTip() {
+            const today = new Date().getDate();
+            const index = today % categories.length;
+            const daily = categories[index];
+            document.getElementById('dailyTitle').innerHTML = `🌟 نصيحة اليوم لـ (${daily.name})`;
+            document.getElementById('dailyText').innerText = daily.tip;
+        }
+
+        // التهيئة عند الفتح
+        window.onload = () => {
+            renderCategories();
+            setDailyTip();
+        };
+
+        // إغلاق النافذة عند الضغط خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById('tipModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+  </html>
+  
